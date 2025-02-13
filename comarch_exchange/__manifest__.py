@@ -13,6 +13,8 @@
                     <br>
                     The invoices are exported from Odoo to Comarch Exchange.
     """,
+    'support': 'd.lyubenov@maylasoftware.com',
+    'images': ['static/description/banner.png'],
     'version': '1.0.0',
     'depends': ['mail', 'portal', 'account', 'sale', 'stock'],
     'data': [
