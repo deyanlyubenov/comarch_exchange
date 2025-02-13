@@ -15,6 +15,7 @@
     """,
     'support': 'd.lyubenov@maylasoftware.com',
     'images': ['static/description/banner.png'],
+    'license': 'OPL-1',
     'version': '1.0.0',
     'depends': ['mail', 'portal', 'account', 'sale', 'stock'],
     'data': [
