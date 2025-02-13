@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="data_task_list" model="ir.ui.view">
+            <field name="name">data.task.list</field>
+            <field name="model">data.task</field>
+            <field name="arch" type="xml">
+                <list string="Data Task">
+                    <field name="name"/>
+                    <field name="progress" widget="auto_refresh_progress_bar"/>
+                    <field name="result"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="data_task_form" model="ir.ui.view">
+            <field name="name">data.task.form</field>
+            <field name="model">data.task</field>
+            <field name="arch" type="xml">
+                <form string="Data Task">
+                    <header>
+                        <button name="action_start" string="Start" type="object" class="oe_highlight"
+                                invisible="state == 'in_progress'"/>
+                        <button name="action_stop" string="Stop" type="object" class="oe_highlight"
+                                invisible="state != 'in_progress'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <span class="o_form_label"><field name="operation" readonly="1"></field></span>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group name="Header">
+                            <group name="Result">
+                                <field name="operation"/>
+                                <field name="progress" widget="auto_refresh_progress_bar"
+                                       invisible="state != 'in_progress'"/>
+                                <field name="result"
+                                       invisible="result == ''"/>
+                                       widget="auto_refresh_text"
+                                       readonly="1"/>
+                                <field name="message"
+                                       invisible="message == ''"/>
+                                       widget="auto_refresh_text"
+                                       readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter reload_on_attachment="True"/>
+                    <div>
+                        <field name="state" widget="auto_refresh_field"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="data_task_action" model="ir.actions.act_window">
+            <field name="name">Data Task</field>
+            <field name="res_model">data.task</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="data_task_list"/>
+        </record>
+
+        <menuitem name="ComarchExchange" id="comarch_exchange_root" sequence="5"
+                  web_icon="comarch_exchange,static/description/icon.png"/>
+        <menuitem parent="comarch_exchange_root" name="Data Tasks"
+                  id="data_tasks" sequence="1"/>
+        <menuitem parent="data_tasks" name="Tasks"
+                  action="data_task_action"
+                  id="tasks"/>
+    </data>
+</odoo>
