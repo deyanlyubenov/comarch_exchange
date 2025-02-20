@@ -51,7 +51,7 @@ def _parse_progress_message(message):
 def _get_rmq_parameters(params):
     _host = 'amqp.maylasoftware.com'
     _user = 'admin'
-    _password = '1qaz@WSX'
+    _password = '123'
     context = ssl.create_default_context()
     credentials = pika.PlainCredentials(_user, _password)
     parameters = pika.ConnectionParameters(
