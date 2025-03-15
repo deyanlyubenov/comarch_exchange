@@ -8,7 +8,7 @@ export class AutoRefreshTextField extends TextField {
     setup() {
         super.setup();
         this.orm = useService("orm");// ORM service for data fetching
-        this.bus = useService("bus_service");// Bus service for event handling
+        this.bus = this.env.services["bus_service"];// Bus service for event handling
         this.refreshHandler = () => {
             this.reloadData();
         };

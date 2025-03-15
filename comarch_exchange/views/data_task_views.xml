@@ -1,14 +1,14 @@
 <odoo>
     <data>
-        <record id="data_task_list" model="ir.ui.view">
-            <field name="name">data.task.list</field>
+        <record id="data_task_tree" model="ir.ui.view">
+            <field name="name">data.task.tree</field>
             <field name="model">data.task</field>
             <field name="arch" type="xml">
-                <list string="Data Task">
+                <tree string="Data Task">
                     <field name="name"/>
                     <field name="progress" widget="auto_refresh_progress_bar"/>
                     <field name="result"/>
-                </list>
+                </tree>
             </field>
         </record>
 
@@ -58,8 +58,8 @@
         <record id="data_task_action" model="ir.actions.act_window">
             <field name="name">Data Task</field>
             <field name="res_model">data.task</field>
-            <field name="view_mode">list,form</field>
-            <field name="view_id" ref="data_task_list"/>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="data_task_tree"/>
         </record>
 
         <menuitem name="ComarchExchange" id="comarch_exchange_root" sequence="5"

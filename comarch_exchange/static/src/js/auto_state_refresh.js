@@ -12,7 +12,7 @@ export class AutoStateRefresh extends Component {
             currentValue: this.getCurrentValue(this.props),
         });
         this.orm = useService("orm");
-        this.bus = useService("bus_service");// Bus service for event handling
+        this.bus = this.env.services["bus_service"];// Bus service for event handling
         this.refreshHandler = () => {
             this.reloadState();
         };
