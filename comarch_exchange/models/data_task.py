@@ -207,6 +207,15 @@ class DataTask(models.Model):
             _logger.error("Error sending task request: %s", e)
 
     def _send_request_queue_message(self, operation):
+        params = self.env['ir.config_parameter'].sudo()
+        _license = params.get_param('comarch_exchange.comarch_service_licanse_key')
+        if not _license:
+            self.write({'state': 'draft', 'result': 'Task failed.',
+                        'message': 'Comarch Service License Key is not set. Open settings and set the license key from "Comarch EDI" tab.'})
+            self.env.cr.commit()
+            raise UserError(
+                'Comarch Service License Key is not set. Open settings and set the license key from "Comarch EDI" tab.')
+
         if not get_running_listener():
             threading.Thread(target=start_listen_rabbitmq, args=(self.env,)).start()
             _index = 0
@@ -219,12 +228,6 @@ class DataTask(models.Model):
             if not get_running_listener():
                 threading.Thread(target=start_listen_rabbitmq, args=(self.env,)).start()
                 return
-        params = self.env['ir.config_parameter'].sudo()
-        _license = params.get_param('comarch_exchange.comarch_service_licanse_key')
-        if not _license:
-            self.write({'state': 'draft', 'result': 'Task failed.', 'message': 'Comarch Service License Key is not set. Open settings and set the license key from "Comarch EDI" tab.'})
-            self.env.cr.commit()
-            raise UserError('Comarch Service License Key is not set. Open settings and set the license key from "Comarch EDI" tab.')
 
         parameters = _get_rmq_parameters(params)
 
